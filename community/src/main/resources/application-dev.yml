@@ -1,0 +1,130 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /community
+
+spring:
+  application:
+    name: community
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/community?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 30000
+
+
+  thymeleaf:
+    cache: false
+  # mail
+  mail:
+    host: smtp.qq.com
+    username: 2427259171@qq.com
+    password: # your password
+    protocol: smtp
+    default-encoding: UTF-8
+  # redis
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    database: 0
+
+  # kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: community-consumer-group
+      enable-auto-commit: true
+      auto-commit-interval: 3000
+
+  # elasticsearch
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:9200
+      read-timeout: 5s
+      connection-timeout: 30s
+
+  task:
+#    # 普通线程池
+#    execution:
+#      pool:
+#        core-size: 5
+#        max-size: 15
+#        queue-capacity: 100
+    # 定时线程池
+    scheduling:
+      pool:
+        size: 5
+
+  # quartz
+  quartz:
+    job-store-type: jdbc
+#spring.quartz.job-store-type=jdbc
+#spring.quartz.scheduler-name=communityScheduler
+#spring.quartz.properties.org.quartz.scheduler.instanceId=AUTO
+#spring.quartz.properties.org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreTX
+#spring.quartz.properties.org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#spring.quartz.properties.org.quartz.jobStore.isClustered=true
+#spring.quartz.properties.org.quartz.threadPool.class=org.quartz.simpl.SimpleThreadPool
+#spring.quartz.properties.org.quartz.threadPool.threadCount=5
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.itjing.community.entity
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+# logging:
+#  level:
+#    com.itjing.community: debug  # print >= debug
+#  file:
+#    path: log/community.log
+
+# community ， user-defined
+community:
+  path:
+    domain: http://localhost:8888
+    upload: E:/workspace_idea/ProjectExperience/community/upload
+
+# wk  user-defined
+wk:
+  image:
+    # 生成长图保存路径
+    storage: E:/workspace_idea/ProjectExperience/community/wk-images
+    # wk 命令
+    command: E:/workspace_tools/wkhtmltopdf/bin/wkhtmltoimage
+
+# qiniu  user-defined
+qiniu:
+  bucket:
+    share:
+      # test url ， will expire after 30 days
+      url: http://qx8wnat50.hb-bkt.clouddn.com
+      name: community-fenxiang
+    header:
+      url: http://qx8ww05y4.hb-bkt.clouddn.com
+      name: community-touxiang
+  key:
+    secret: # your secretKey
+    access: # your accessKey
+
+
+# caffeine，  user-defined
+caffeine:
+  posts:
+    max-size: 15
+    expire-seconds: 180
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+        exclude: info,caches,beans,loggers,database
