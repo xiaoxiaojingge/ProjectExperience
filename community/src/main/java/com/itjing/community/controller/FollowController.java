@@ -110,7 +110,7 @@ public class FollowController implements CommunityConstant {
         }
         model.addAttribute("users", userList);
 
-        return "/site/followee";
+        return "site/followee";
     }
 
     /**
@@ -141,7 +141,7 @@ public class FollowController implements CommunityConstant {
         }
         model.addAttribute("users", userList);
 
-        return "/site/follower";
+        return "site/follower";
     }
 
     /**

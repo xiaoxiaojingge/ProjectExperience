@@ -65,12 +65,12 @@ public class LoginController {
         if (map == null || map.isEmpty()) {
             model.addAttribute("msg", "注册成功,我们已经向您的邮箱发送了一封激活邮件,请尽快激活!");
             model.addAttribute("target", "/index.html");
-            return "/site/operate-result";
+            return "site/operate-result";
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
             model.addAttribute("emailMsg", map.get("emailMsg"));
-            return "/site/register";
+            return "site/register";
         }
     }
 
@@ -96,7 +96,7 @@ public class LoginController {
             model.addAttribute("msg", "激活失败,您提供的激活码不正确!");
             model.addAttribute("target", "/index.html");
         }
-        return "/site/operate-result";
+        return "site/operate-result";
     }
 
     /**
@@ -161,7 +161,7 @@ public class LoginController {
         }
         if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equalsIgnoreCase(code)) {
             model.addAttribute("codeMsg", "验证码不正确!");
-            return "/site/login";
+            return "site/login";
         }
 
         // 检查账号,密码
@@ -177,7 +177,7 @@ public class LoginController {
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
-            return "/site/login";
+            return "site/login";
         }
     }
 

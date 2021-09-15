@@ -28,7 +28,7 @@ public class DataController {
      */
     @RequestMapping(path = "/data", method = {RequestMethod.GET, RequestMethod.POST})
     public String getDataPage() {
-        return "/site/admin/data";
+        return "site/admin/data";
     }
 
     /**

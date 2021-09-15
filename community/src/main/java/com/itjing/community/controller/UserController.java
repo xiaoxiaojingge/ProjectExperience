@@ -104,7 +104,7 @@ public class UserController implements CommunityConstant {
         model.addAttribute("uploadToken", uploadToken);
         model.addAttribute("fileName", fileName);
 
-        return "/site/setting";
+        return "site/setting";
     }
 
     /**
@@ -141,14 +141,14 @@ public class UserController implements CommunityConstant {
     public String uploadHeader(MultipartFile headerImage, Model model) {
         if (headerImage == null) {
             model.addAttribute("error", "您还没有选择图片!");
-            return "/site/setting";
+            return "site/setting";
         }
 
         String fileName = headerImage.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         if (StringUtils.isBlank(suffix)) {
             model.addAttribute("error", "文件的格式不正确!");
-            return "/site/setting";
+            return "site/setting";
         }
 
         // 生成随机文件名
@@ -223,7 +223,7 @@ public class UserController implements CommunityConstant {
         } else {
             model.addAttribute("oldPasswordMsg", map.get("oldPasswordMsg"));
             model.addAttribute("newPasswordMsg", map.get("newPasswordMsg"));
-            return "/site/setting";
+            return "site/setting";
         }
     }
 
@@ -262,7 +262,7 @@ public class UserController implements CommunityConstant {
         }
         model.addAttribute("hasFollowed", hasFollowed);
 
-        return "/site/profile";
+        return "site/profile";
     }
 
     /**
@@ -278,6 +278,8 @@ public class UserController implements CommunityConstant {
         int discussPostsRows = discussPostService.findDiscussPostRows(userId);
 
         page.setLimit(5);
+
+        page.setRows(discussPostsRows);
 
         page.setPath("/user/myPost/" + userId);
 
@@ -306,7 +308,7 @@ public class UserController implements CommunityConstant {
 
         model.addAttribute("userId", userId);
 
-        return "/site/my-post";
+        return "site/my-post";
     }
 
     /**
@@ -352,6 +354,6 @@ public class UserController implements CommunityConstant {
 
         model.addAttribute("userId", userId);
 
-        return "/site/my-reply";
+        return "site/my-reply";
     }
 }

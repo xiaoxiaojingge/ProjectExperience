@@ -11,7 +11,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/community?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: # your password
     hikari:
       maximum-pool-size: 15
       minimum-idle: 5
@@ -24,14 +24,15 @@ spring:
   mail:
     host: smtp.qq.com
     username: 2427259171@qq.com
-    password: # your password
+    password:  # your password
     protocol: smtp
     default-encoding: UTF-8
   # redis
   redis:
     port: 6379
-    host: 127.0.0.1
+    host: localhost
     database: 0
+    password: # your password
 
   # kafka
   kafka:
@@ -44,7 +45,7 @@ spring:
   # elasticsearch
   elasticsearch:
     rest:
-      uris: 127.0.0.1:9200
+      uris: localhost:9200
       read-timeout: 5s
       connection-timeout: 30s
 
@@ -111,8 +112,8 @@ qiniu:
       url: http://qx8ww05y4.hb-bkt.clouddn.com
       name: community-touxiang
   key:
-    secret: # your secretKey
-    access: # your accessKey
+    secret:  # your secretKey
+    access:  # your accessKey
 
 
 # caffeine，  user-defined
@@ -126,5 +127,5 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: '*'
         exclude: info,caches,beans,loggers,database

@@ -38,8 +38,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TemplateEngine templateEngine;
 
+    /**
+     * dev
+     */
     @Value("${community.path.domain}")
     private String domain;
+
+    /**
+     * prod
+     */
+    @Value("${community.path.proddomain}")
+    private String proddomain;
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
@@ -125,7 +134,7 @@ public class UserServiceImpl implements UserService {
         Context context = new Context();
         context.setVariable("email", user.getEmail());
         // http://localhost:8888/community/activation/101/code  code为激活码
-        String url = domain + contextPath + "/activation/" + user.getId() + "/" + user.getActivationCode();
+        String url = proddomain + contextPath + "/activation/" + user.getId() + "/" + user.getActivationCode();
         // 设置参数，自动填充到下面设置的html中的动态参数位置
         context.setVariable("url", url);
         // 使用 templateEngine 根据现有的 html 文件生成 html 文本
@@ -145,6 +154,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public int activation(int userId, String code) {
         User user = userMapper.selectById(userId);
+        if (user == null) {
+            return ACTIVATION_FAILURE;
+        }
         if (user.getStatus() == 1) {
             return ACTIVATION_REPEAT;
         } else if (code.equals(user.getActivationCode())) {
@@ -321,6 +333,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取用户权限
+     *
      * @param userId
      * @return
      */

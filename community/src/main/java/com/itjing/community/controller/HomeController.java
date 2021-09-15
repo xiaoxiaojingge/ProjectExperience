@@ -70,7 +70,7 @@ public class HomeController {
         }
         model.addAttribute("discussPosts", discussPosts);
         model.addAttribute("orderMode",orderMode);
-        return "/index";
+        return "index";
     }
 
     /**
@@ -80,7 +80,7 @@ public class HomeController {
      */
     @RequestMapping(path = "/error", method = RequestMethod.GET)
     public String getErrorPage() {
-        return "/error/500";
+        return "error/500";
     }
 
     /**
@@ -90,6 +90,6 @@ public class HomeController {
      */
     @RequestMapping(path = "/denied", method = RequestMethod.GET)
     public String getDeniedPage() {
-        return "/error/404";
+        return "error/404";
     }
 }
